@@ -23,3 +23,58 @@ flowchart
  PITCH --- TIMESLOT
  BOOKING --- TIMESLOT
 ```
+#### ER Diagram:
+``` mermaid
+erDiagram
+address {
+    int id PK
+    string name
+    string address_line_1
+    string address_line_2
+    string region
+    string zipcode
+    }
+user {
+    int id PK
+    string first_name
+    string last_name
+    string email
+    string password
+    int booking_id FK
+  }
+booking_time_slot{
+    int booking_id FK
+    int time_slot_id FK
+}
+pitch{
+    int id PK
+    string description
+    int booking_id FK
+}
+booking {
+    int id PK
+    string description
+    date booking_date
+    int user_id FK
+}
+time_slot {
+    int id PK
+    datetime time 
+}
+pitch_time_slot {
+    int pitch_id FK
+    int time_slot_id FK
+}
+pitch_address {
+    int pitch_id FK
+    int address_id FK
+}
+    user }|--|| booking : has
+    pitch }|--|| booking : has
+    booking }|--|| booking_time_slot : has
+    time_slot }|--|| booking_time_slot : has
+    pitch }|--|| pitch_time_slot : has
+    time_slot }|--|| pitch_time_slot : has
+    pitch }|--|| pitch_address : has
+    address }|--|| pitch_address : ""
+```
