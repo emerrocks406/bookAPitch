@@ -4,10 +4,22 @@ This is an application that will allow users within a GAA club book a pitch for 
 ## Why create this application?
 The aim is to provide a user with the ability to book a pitch on the date and time that they need it. This application will also allow the user to see when a pitch booking has been cancelled or if a pitch becomes available last minute.
 #### MVP:
- - Admin / User  Creation  and Login
+ - Login
  - Calendar to show pitch bookings
  - Ability for user to create a booking request for an available date.
 #### Stretch Goals:
  - Admin can accept a booking request for an available date.
  - A user can complete payment for an accepted booking request.
  - Automatically send email updates to users.
+ - Admin / User  Creation
+#### Domain Model:
+```mermaid
+flowchart 
+ USER --- BOOKING
+ BOOKING --- EMAIL
+ PITCH --- ADDRESS 
+ BOOKING --- PITCH
+ USER --- EMAIL
+ PITCH --- TIMESLOT
+ BOOKING --- TIMESLOT
+```
