@@ -48,7 +48,7 @@ booking_time_slot{
 }
 pitch{
     int id PK
-    string description
+    string name
     int booking_id FK
 }
 booking {
