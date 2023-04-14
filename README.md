@@ -40,28 +40,24 @@ user {
     string last_name
     string email
     string password
-    int booking_id FK
   }
-booking_time_slot{
-    int booking_id FK
-    int time_slot_id FK
-}
 pitch{
     int id PK
     string name
-    int booking_id FK
 }
 booking {
     int id PK
     string description
     date booking_date
-    int user_id FK
+    int pitch_time_slot_id FK
 }
 time_slot {
     int id PK
     datetime time 
 }
 pitch_time_slot {
+    int id PK
+    string status
     int pitch_id FK
     int time_slot_id FK
 }
@@ -69,10 +65,14 @@ pitch_address {
     int pitch_id FK
     int address_id FK
 }
+user_booking{
+    int user_id FK
+    int booking_id FK
+}
     user }|--|| booking : has
+    user }|--|| user_booking : has
+    booking }|--|| user_booking : has
     pitch }|--|| booking : has
-    booking }|--|| booking_time_slot : has
-    time_slot }|--|| booking_time_slot : has
     pitch }|--|| pitch_time_slot : has
     time_slot }|--|| pitch_time_slot : has
     pitch }|--|| pitch_address : has
