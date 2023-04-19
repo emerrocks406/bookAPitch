@@ -19,7 +19,6 @@ create table pitch(
 
 create table address(
 	id serial primary key,
-	name varchar not null,
 	address_line_1 varchar not null,
 	address_line_2 varchar not null,
 	region varchar not null,
