@@ -102,7 +102,7 @@ Response 200
 ```
 ---
 
-`GET /users/{user_id}`
+`GET /users/{id}`
 Return a user
 
 Response 200
@@ -132,12 +132,15 @@ Response - `201 Created`
 
 ---
 
-`PUT /users/{user_id}`
+`PUT /users/{id}`
 Update a user by id
 
 Request
 ```json
 {
+    "email": "tester@test.com",
+    "first_name": "Tester",
+    "last_name": "Testing",
    "password": "password2"
 }
 ```
@@ -145,7 +148,7 @@ Response - `200 OK`
 
 ---
 
-`DELETE /users/{user_id}`
+`DELETE /users/{id}`
 Delete a user by id
 
 Response - `204 No Content`
@@ -153,14 +156,13 @@ Response - `204 No Content`
 ---
 
 #### BOOKINGS
-`GET /user-bookings`
+`GET /user/{id}/bookings`
 Return a list of all user bookings
 
 Response 200
 ```json
 [
  {
-     "id": 1,
      "pitch_time_slot":  {
                            "id": 1,
                            "pitch": {
@@ -177,7 +179,6 @@ Response 200
      "booking_date": "2023-01-18"
  },
  {
-     "id": 2,
      "pitch_time_slot":  {
                            "id": 2,
                            "pitch": {
@@ -185,7 +186,7 @@ Response 200
                                      "name": "St Galls"
                                     },
                            "time-slot": {
-                                           "id": 1,
+                                           "id": 2,
                                            "time-slot-start": "2023-01-19 14:30:00.00",
                                            "time-slot-end": "2023-01-19 15:30:00.00"
                                         }
@@ -197,13 +198,12 @@ Response 200
 ```
 ---
 
-`GET /user-bookings/{user_id}`
+`GET /user-bookings/{id}`
 Return a user booking by user id
 
 Response 200
 ```json
  {
-     "id": 2,
      "pitch_time_slot":  {
                            "id": 2,
                            "pitch": {
@@ -225,53 +225,17 @@ Response 200
 ```
 ---
 
-`POST /user-bookings`
+`POST /users/{id}/booking`
 Create a booking
 
 Request
 ```json
  {
-     "pitch_time_slot":  {
-                           "id": 2,
-                           "status": "booked",
-                           "pitch": {
-                                     "id": 2,
-                                     "name": "St Galls"
-                                    },
-                           "time-slot": {
-                                           "id": 1,
-                                           "time-slot-start": "2023-01-19 14:30:00.00",
-                                           "time-slot-end": "2023-01-19 15:30:00.00"
-                                        }
-                         },
-     "user": {
-                "id": 1,
-                "name": "Emer Rocks"
-             }
+     "pitch_time_slot_id": 1,
+     "user_id": 1,
      "description": "Grass pitch",
-     "booking_date": "2023-01-19"
- },
+},
 ```
----
-
-`PUT /user-bookings/{booking_id}`
-Update a user booking by id
-
-Request
-```json
-{
-   "booking_date": "2023-04-20"
-}
-```
-Response - `200 OK`
-
----
-
-`DELETE /user-bookings/{booking_id}`
-Delete a booking by id
-
-Response - `204 No Content`
-
 ---
 
 `GET /pitches`
@@ -312,19 +276,25 @@ Response 200
  {
      "id": 1,
      "name": "St.Pauls",
-     "pitch-time-slot": {
-                           "id": 2,
-                           "status": "available",
-                           "pitch": {
-                                     "id": 2,
-                                     "name": "St Galls"
-                                    },
+     "pitch-time-slot": [
                            "time-slot": {
-                                           "id": 1,
                                            "time-slot-start": "2023-01-19 14:30:00.00",
                                            "time-slot-end": "2023-01-19 15:30:00.00"
                                         }
-                         },
+                         ],
  }
+```
+---
+
+`POST /pitches/{id}/booking`
+Create a booking
+
+Request
+```json
+ {
+     "pitch_time_slot_id": 1,
+     "user_id": 1,
+     "description": "Grass pitch",
+},
 ```
 ---
