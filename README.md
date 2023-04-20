@@ -78,3 +78,253 @@ user_booking{
     pitch }|--|| pitch_address : has
     address }|--|| pitch_address : ""
 ```
+
+#### USERS
+`GET /users`
+Return a list of all users
+
+Response 200
+```json
+[
+  {
+     "id": 1,
+     "email": "emer@emer.com",
+     "first_name": "emer",
+     "last_name": "rocks"
+  },
+  {
+     "id": 2,
+     "email": "user@user.com",
+     "first_name": "user",
+     "last_name": "test"
+  }
+]
+```
+---
+
+`GET /users/{user_id}`
+Return a user
+
+Response 200
+```json
+  {
+     "id": 2,
+     "email": "user@user.com",
+     "first_name": "user",
+     "last_name": "test"
+  }
+```
+---
+
+`POST /users`
+Create a user
+
+Request
+```json
+{
+    "email": "test@test.com",
+    "first_name": "Test",
+    "last_name": "Tester",
+    "password": "password1",
+}
+```
+Response - `201 Created`
+
+---
+
+`PUT /users/{user_id}`
+Update a user by id
+
+Request
+```json
+{
+   "password": "password2"
+}
+```
+Response - `200 OK`
+
+---
+
+`DELETE /users/{user_id}`
+Delete a user by id
+
+Response - `204 No Content`
+
+---
+
+#### BOOKINGS
+`GET /user-bookings`
+Return a list of all user bookings
+
+Response 200
+```json
+[
+ {
+     "id": 1,
+     "pitch_time_slot":  {
+                           "id": 1,
+                           "pitch": {
+                                     "id": 1,
+                                     "name": "St Pauls"
+                                    },
+                           "time-slot": {
+                                           "id": 1,
+                                           "time-slot-start": "2023-01-18 14:30:00.00",
+                                           "time-slot-end": "2023-01-18 15:30:00.00"
+                                        }
+                         },
+     "description": "3G pitch",
+     "booking_date": "2023-01-18"
+ },
+ {
+     "id": 2,
+     "pitch_time_slot":  {
+                           "id": 2,
+                           "pitch": {
+                                     "id": 2,
+                                     "name": "St Galls"
+                                    },
+                           "time-slot": {
+                                           "id": 1,
+                                           "time-slot-start": "2023-01-19 14:30:00.00",
+                                           "time-slot-end": "2023-01-19 15:30:00.00"
+                                        }
+                         },
+     "description": "Grass pitch",
+     "booking_date": "2023-01-19"
+ },
+]
+```
+---
+
+`GET /user-bookings/{user_id}`
+Return a user booking by user id
+
+Response 200
+```json
+ {
+     "id": 2,
+     "pitch_time_slot":  {
+                           "id": 2,
+                           "pitch": {
+                                     "id": 2,
+                                     "name": "St Galls"
+                                    },
+                           "time-slot": {
+                                           "id": 1,
+                                           "time-slot-start": "2023-01-19 14:30:00.00",
+                                           "time-slot-end": "2023-01-19 15:30:00.00"
+                                        }
+                         },
+     "user": {
+                "name": "Emer Rocks"
+             }
+     "description": "Grass pitch",
+     "booking_date": "2023-01-19"
+ }
+```
+---
+
+`POST /user-bookings`
+Create a booking
+
+Request
+```json
+ {
+     "pitch_time_slot":  {
+                           "id": 2,
+                           "status": "booked",
+                           "pitch": {
+                                     "id": 2,
+                                     "name": "St Galls"
+                                    },
+                           "time-slot": {
+                                           "id": 1,
+                                           "time-slot-start": "2023-01-19 14:30:00.00",
+                                           "time-slot-end": "2023-01-19 15:30:00.00"
+                                        }
+                         },
+     "user": {
+                "id": 1,
+                "name": "Emer Rocks"
+             }
+     "description": "Grass pitch",
+     "booking_date": "2023-01-19"
+ },
+```
+---
+
+`PUT /user-bookings/{booking_id}`
+Update a user booking by id
+
+Request
+```json
+{
+   "booking_date": "2023-04-20"
+}
+```
+Response - `200 OK`
+
+---
+
+`DELETE /user-bookings/{booking_id}`
+Delete a booking by id
+
+Response - `204 No Content`
+
+---
+
+`GET /pitches`
+Returns all pitches 
+
+Response 200
+```json
+[
+ {
+     "id": 1,
+     "name": "St.Pauls"
+ },
+ {
+     "id": 2,
+     "name": "St.Johns"
+ }
+]
+```
+---
+
+`GET /pitches/{id}`
+Returns a pitch by id
+
+Response 200
+```json
+ {
+     "id": 1,
+     "name": "St.Pauls"
+ }
+```
+---
+
+`GET /pitches/{id}/time-slots`
+Returns a pitches time-slots
+
+Response 200
+```json
+ {
+     "id": 1,
+     "name": "St.Pauls",
+     "pitch-time-slot": {
+                           "id": 2,
+                           "status": "available",
+                           "pitch": {
+                                     "id": 2,
+                                     "name": "St Galls"
+                                    },
+                           "time-slot": {
+                                           "id": 1,
+                                           "time-slot-start": "2023-01-19 14:30:00.00",
+                                           "time-slot-end": "2023-01-19 15:30:00.00"
+                                        }
+                         },
+ }
+```
+---
