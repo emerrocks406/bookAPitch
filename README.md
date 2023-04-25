@@ -238,6 +238,7 @@ Request
 ```
 ---
 
+#### PITCHES
 `GET /pitches`
 Returns all pitches 
 
